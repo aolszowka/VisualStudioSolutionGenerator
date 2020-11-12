@@ -50,7 +50,7 @@ namespace SolutionGenerator
             return sb.ToString();
         }
 
-        private static void GenerateConfigurationFragmentForProjects(IEnumerable<string> projFilePaths, StringBuilder sb)
+        internal static void GenerateConfigurationFragmentForProjects(IEnumerable<string> projFilePaths, StringBuilder sb)
         {
             foreach (var proj in projFilePaths)
             {
@@ -64,7 +64,7 @@ namespace SolutionGenerator
             }
         }
 
-        private static string DetermineConfigurationForProject(string proj)
+        internal static string DetermineConfigurationForProject(string proj)
         {
             string configuration = "Any CPU";
 
@@ -78,7 +78,7 @@ namespace SolutionGenerator
         /// <param name="solutionRoot">The Directory that contains the solution file. This is used to generate the relative path to the CSPROJ File.</param>
         /// <param name="pathToProjFile">The fully qualified path to the Project File.</param>
         /// <returns>A <c>string</c> that represents a properly formatted Project Fragment for a Visual Studio Solution.</returns>
-        private static string GenerateSolutionFragmentForProject(string solutionRoot, string pathToProjFile)
+        internal static string GenerateSolutionFragmentForProject(string solutionRoot, string pathToProjFile)
         {
             string relativePath = Path.GetRelativePath(solutionRoot, pathToProjFile);
             string projectTypeGuid = GetProjectTypeGuid(pathToProjFile);
@@ -94,7 +94,7 @@ namespace SolutionGenerator
         /// </summary>
         /// <param name="pathToProjFile">The path to the project file.</param>
         /// <returns>The Guid to be used in the Solution File.</returns>
-        static string GetProjectTypeGuid(string pathToProjFile)
+        internal static string GetProjectTypeGuid(string pathToProjFile)
         {
             string result = string.Empty;
 
