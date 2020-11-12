@@ -90,18 +90,18 @@ namespace SolutionGenerator
                 if (!resolvedProjects.ContainsKey(currentProject))
                 {
                     // Get all this projects references
-                    string[] projectDependencies = ProjectReferences(currentProject).ToArray();
+                    string[] projectReferences = ProjectReferences(currentProject).ToArray();
 
                     // Add the current project along with all its DIRECT
                     // Dependencies to the result structure
-                    resolvedProjects.Add(currentProject, projectDependencies);
+                    resolvedProjects.Add(currentProject, projectReferences);
 
-                    foreach (string projectDependency in projectDependencies)
+                    foreach (string projectReference in projectReferences)
                     {
                         // Save the stack by not resolving already resolved projects
-                        if (!resolvedProjects.ContainsKey(projectDependency))
+                        if (!resolvedProjects.ContainsKey(projectReference))
                         {
-                            unresolvedProjects.Push(projectDependency);
+                            unresolvedProjects.Push(projectReference);
                         }
                     }
                 }
