@@ -4,20 +4,20 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml.Linq;
-
 namespace SolutionGenerator
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Xml.Linq;
+
     static class MSBuildUtilities
     {
         /// <summary>
         /// The MSBuild XML Namespace
         /// </summary>
-        private static XNamespace MSBUILD_NAMESPACE = @"http://schemas.microsoft.com/developer/msbuild/2003";
+        private static readonly XNamespace MSBUILD_NAMESPACE = @"http://schemas.microsoft.com/developer/msbuild/2003";
 
         /// <summary>
         /// Extracts the Project GUID from the specified MSBuildProject File File.
@@ -27,7 +27,23 @@ namespace SolutionGenerator
         public static string GetProjectGuid(string pathToProjFile)
         {
             XDocument projFile = XDocument.Load(pathToProjFile);
-            XElement projectGuid = projFile.Descendants(MSBUILD_NAMESPACE + "ProjectGuid").First();
+
+            XElement projectGuid;
+
+            if (IsDotnetCore(pathToProjFile))
+            {
+                projectGuid = projFile.Descendants("ProjectGuid").FirstOrDefault();
+            }
+            else
+            {
+                projectGuid = projFile.Descendants(MSBUILD_NAMESPACE + "ProjectGuid").FirstOrDefault();
+            }
+
+            if (projectGuid == null)
+            {
+                throw new InvalidOperationException($"Project `{pathToProjFile}` did not have a ProjectGuid Element; This tool will not work.");
+            }
+
             return projectGuid.Value;
         }
 
@@ -113,6 +129,23 @@ namespace SolutionGenerator
                 string resolvedPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(targetProject), relativeProjectPath));
                 yield return resolvedPath;
             }
+        }
+
+        /// <summary>
+        /// Attempt to determine if a project is a .NET Core Project type.
+        /// </summary>
+        /// <param name="pathToProjFile">The path to the project file.</param>
+        /// <returns><c>true</c> if this is a .NET Core project; otherwise, <c>false</c>.</returns>
+        internal static bool IsDotnetCore(string pathToProjFile)
+        {
+            XDocument projXml = XDocument.Load(pathToProjFile);
+            bool hasSdkAttribute =
+                projXml
+                .Descendants("Project")
+                .Where(projectElement => projectElement.Attribute("Sdk") != null)
+                .Any();
+
+            return hasSdkAttribute;
         }
     }
 }

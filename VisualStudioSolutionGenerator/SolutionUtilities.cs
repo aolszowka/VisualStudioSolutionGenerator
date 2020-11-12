@@ -104,7 +104,15 @@ namespace SolutionGenerator
             {
                 case ".csproj":
                     {
-                        result = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}";
+                        // Due to .NET Core We have to Inspect the File
+                        if (MSBuildUtilities.IsDotnetCore(pathToProjFile))
+                        {
+                            result = "{9A19103F-16F7-4668-BE54-9A1E7A4F7556}";
+                        }
+                        else
+                        {
+                            result = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}";
+                        }
                         break;
                     }
                 case ".synproj":
@@ -114,7 +122,15 @@ namespace SolutionGenerator
                     }
                 case ".fsproj":
                     {
-                        result = "{F2A71F9B-5D33-465A-A702-920D77279786}";
+                        // Due to .NET Core We have to Inspect the File
+                        if (MSBuildUtilities.IsDotnetCore(pathToProjFile))
+                        {
+                            result = "{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}";
+                        }
+                        else
+                        {
+                            result = "{F2A71F9B-5D33-465A-A702-920D77279786}";
+                        }
                         break;
                     }
                 case ".sqlproj":
