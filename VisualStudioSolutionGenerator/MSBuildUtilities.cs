@@ -90,7 +90,7 @@ namespace SolutionGenerator
                 if (!resolvedProjects.ContainsKey(currentProject))
                 {
                     // Get all this projects references
-                    string[] projectDependencies = ProjectDependencies(currentProject).ToArray();
+                    string[] projectDependencies = ProjectReferences(currentProject).ToArray();
 
                     // Add the current project along with all its DIRECT
                     // Dependencies to the result structure
@@ -115,7 +115,7 @@ namespace SolutionGenerator
         /// </summary>
         /// <param name="targetProject">The project to load.</param>
         /// <returns>An IEnumerable that contains all the fully qualified ProjectReference paths.</returns>
-        static IEnumerable<string> ProjectDependencies(string targetProject)
+        static IEnumerable<string> ProjectReferences(string targetProject)
         {
             XNamespace msbuildNS = "http://schemas.microsoft.com/developer/msbuild/2003";
 
