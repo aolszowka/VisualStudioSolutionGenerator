@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="MSBuildUtilities.cs" company="Ace Olszowka">
-//  Copyright (c) Ace Olszowka 2018. All rights reserved.
+//  Copyright (c) Ace Olszowka 2018-2020. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -110,7 +110,7 @@ namespace SolutionGenerator
             foreach (XElement projectReference in projectReferences)
             {
                 string relativeProjectPath = projectReference.Attribute("Include").Value;
-                string resolvedPath = PathUtilities.ResolveRelativePath(Path.GetDirectoryName(targetProject), relativeProjectPath);
+                string resolvedPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(targetProject), relativeProjectPath));
                 yield return resolvedPath;
             }
         }

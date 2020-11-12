@@ -11,6 +11,7 @@ namespace SolutionGenerator
     using System.IO;
     using System.Linq;
     using System.Text;
+
     using Microsoft.Build.Construction;
 
     static class SolutionUtilities
@@ -79,8 +80,7 @@ namespace SolutionGenerator
         /// <returns>A <c>string</c> that represents a properly formatted Project Fragment for a Visual Studio Solution.</returns>
         private static string GenerateSolutionFragmentForProject(string solutionRoot, string pathToProjFile)
         {
-            solutionRoot = PathUtilities.AddTrailingSlash(solutionRoot);
-            string relativePath = PathUtilities.GetRelativePath(solutionRoot, pathToProjFile);
+            string relativePath = Path.GetRelativePath(solutionRoot, pathToProjFile);
             string projectTypeGuid = GetProjectTypeGuid(pathToProjFile);
             string projectName = Path.GetFileNameWithoutExtension(pathToProjFile);
             string projectGuid = MSBuildUtilities.GetProjectGuid(pathToProjFile);
@@ -153,7 +153,7 @@ namespace SolutionGenerator
                 .ProjectsInOrder
                 .Where(project => project.ProjectType == SolutionProjectType.KnownToBeMSBuildFormat || additionalSupportedTypes.Any(supportedType => supportedType.Equals(Path.GetExtension(project.RelativePath), StringComparison.InvariantCultureIgnoreCase)))
                 .Select(project => project.RelativePath)
-                .Select(projectRelativePath => PathUtilities.ResolveRelativePath(solutionFolder, projectRelativePath));
+                .Select(projectRelativePath => Path.GetFullPath(Path.Combine(solutionFolder, projectRelativePath)));
         }
     }
 }

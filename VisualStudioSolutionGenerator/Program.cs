@@ -43,8 +43,16 @@ namespace SolutionGenerator
         public static void FromRelativePathListing(string solutionFile, string relativeProjectListingFile)
         {
             // Resolve the relative paths of the projects
-            string solutionRoot = Path.GetDirectoryName(solutionFile) + Path.DirectorySeparatorChar;
-            IEnumerable<string> pathsToProjects = File.ReadLines(relativeProjectListingFile).Select(relativePath => PathUtilities.ResolveRelativePath(solutionRoot, relativePath));
+            string solutionRoot = Path.GetDirectoryName(solutionFile);
+            IEnumerable<string> pathsToProjects =
+                File
+                    .ReadLines(relativeProjectListingFile)
+                    .Select(relativePath =>
+                    {
+                        string combinedRelativePath = Path.Combine(solutionRoot, relativePath);
+                        string actualRelativePath = Path.GetFullPath(combinedRelativePath);
+                        return actualRelativePath;
+                    });
 
             // Now Resolve all N-Order Dependencies
             IEnumerable<string> projFilesAndNOrderDependencies = MSBuildUtilities.ResolveProjectReferenceDependenciesFlat(pathsToProjects);
