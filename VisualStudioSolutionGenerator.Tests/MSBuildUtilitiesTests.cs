@@ -30,13 +30,13 @@ namespace VisualStudioSolutionGenerator.Tests
     {
         public IEnumerator GetEnumerator()
         {
-            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "GetProjectTypeGuid", "net472csharp.csproj"), false);
-            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "GetProjectTypeGuid", "net472fsharp.fsproj"), false);
-            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "GetProjectTypeGuid", "net472syn.synproj"), false);
-            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "GetProjectTypeGuid", "net472sql.sqlproj"), false);
-            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "GetProjectTypeGuid", "netcoreapp31csharp.csproj"), true);
-            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "GetProjectTypeGuid", "netstandard20csharp.csproj"), true);
-            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "GetProjectTypeGuid", "netstandard20fsharp.fsproj"), true);
+            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "net472csharp.csproj"), false);
+            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "net472fsharp.fsproj"), false);
+            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "net472syn.synproj"), false);
+            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "net472sql.sqlproj"), false);
+            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "netcoreapp31csharp.csproj"), true);
+            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "netstandard20csharp.csproj"), true);
+            yield return new TestCaseData(Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "netstandard20fsharp.fsproj"), true);
         }
     }
 }
