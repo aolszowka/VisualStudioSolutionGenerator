@@ -96,10 +96,9 @@ namespace SolutionGenerator
         /// <returns>The Guid to be used in the Solution File.</returns>
         internal static string GetProjectTypeGuid(string pathToProjFile)
         {
-            string result = string.Empty;
-
             string projectExtension = Path.GetExtension(pathToProjFile);
 
+            string result;
             switch (projectExtension.ToLower())
             {
                 case ".csproj":
