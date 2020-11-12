@@ -3,7 +3,7 @@
     <!--<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>-->
     <Name>net472</Name>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>3e67c72a-5b2e-4d5b-9170-67d010dfa68c</ProjectGuid>
+    <ProjectGuid>{3e67c72a-5b2e-4d5b-9170-67d010dfa68c}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>SynergyDotnetConsoleApp</RootNamespace>
     <AssemblyName>SynergyDotnetConsoleApp</AssemblyName>
