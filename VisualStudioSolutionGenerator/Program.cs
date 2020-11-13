@@ -104,7 +104,7 @@ namespace VisualStudioSolutionGenerator
                 }
                 else
                 {
-                    Environment.ExitCode = InvalidArguments("FromProjectListingRelative");
+                    Environment.ExitCode = InvalidArguments("FromSolutionListing");
                 }
             }
             else if (forFolder)
@@ -117,7 +117,7 @@ namespace VisualStudioSolutionGenerator
                 }
                 else
                 {
-                    Environment.ExitCode = InvalidArguments("FromProjectListingRelative");
+                    Environment.ExitCode = InvalidArguments("ForFolder");
                 }
             }
             else
