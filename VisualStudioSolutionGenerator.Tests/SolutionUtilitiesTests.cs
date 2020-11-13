@@ -11,8 +11,6 @@ namespace VisualStudioSolutionGenerator.Tests
 
     using NUnit.Framework;
 
-    using SolutionGenerator;
-
     [TestFixture]
     [Parallelizable(ParallelScope.All)]
     public class SolutionUtilitiesTests

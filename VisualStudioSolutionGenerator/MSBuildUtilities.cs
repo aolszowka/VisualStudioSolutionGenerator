@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace SolutionGenerator
+namespace VisualStudioSolutionGenerator
 {
     using System;
     using System.Collections.Generic;
