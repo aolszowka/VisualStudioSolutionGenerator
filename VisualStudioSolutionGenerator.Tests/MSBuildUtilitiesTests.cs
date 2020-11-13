@@ -66,6 +66,25 @@ namespace VisualStudioSolutionGenerator.Tests
                         Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_D", "net472csharp_D.csproj"),
                     }
                 );
+            yield return new
+                TestCaseData
+                (
+                    Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_A", "netstandard20csharp_A.csproj"),
+                    new string[]
+                    {
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_B", "netstandard20csharp_B.csproj"),
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_C", "netstandard20csharp_C.csproj"),
+                    }
+                );
+            yield return new
+                TestCaseData
+                (
+                    Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_C", "netstandard20csharp_C.csproj"),
+                    new string[]
+                    {
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_D", "netstandard20csharp_D.csproj"),
+                    }
+                );
         }
     }
 
