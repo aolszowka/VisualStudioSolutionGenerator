@@ -7,6 +7,7 @@
 namespace VisualStudioSolutionGenerator.Tests
 {
     using System.Collections;
+    using System.Collections.Generic;
     using System.IO;
 
     using NUnit.Framework;
@@ -31,6 +32,40 @@ namespace VisualStudioSolutionGenerator.Tests
             bool actual = MSBuildUtilities.IsDotnetCore(pathToProj);
 
             Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [TestCaseSource(typeof(ProjectReferences_ValidInput_Tests))]
+        public void ProjectReferences_ValidInput(string pathToProj, IEnumerable<string> expected)
+        {
+            IEnumerable<string> actual = MSBuildUtilities.ProjectReferences(pathToProj);
+
+            Assert.That(actual, Is.EquivalentTo(expected));
+        }
+    }
+
+    internal class ProjectReferences_ValidInput_Tests : IEnumerable
+    {
+        public IEnumerator GetEnumerator()
+        {
+            yield return new
+                TestCaseData
+                (
+                    Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_A", "net472csharp_A.csproj"),
+                    new string[]
+                    {
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_B", "net472csharp_B.csproj"),
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_C", "net472csharp_C.csproj"),
+                    }
+                );
+            yield return new
+                TestCaseData
+                (
+                    Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_C", "net472csharp_C.csproj"),
+                    new string[]
+                    {
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_D", "net472csharp_D.csproj"),
+                    }
+                );
         }
     }
 

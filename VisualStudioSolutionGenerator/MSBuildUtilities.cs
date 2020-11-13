@@ -115,7 +115,7 @@ namespace SolutionGenerator
         /// </summary>
         /// <param name="targetProject">The project to load.</param>
         /// <returns>An IEnumerable that contains all the fully qualified ProjectReference paths.</returns>
-        static IEnumerable<string> ProjectReferences(string targetProject)
+        internal static IEnumerable<string> ProjectReferences(string targetProject)
         {
             XNamespace msbuildNS = "http://schemas.microsoft.com/developer/msbuild/2003";
 
