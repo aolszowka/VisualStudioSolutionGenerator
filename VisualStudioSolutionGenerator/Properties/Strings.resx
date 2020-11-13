@@ -142,7 +142,9 @@
     <value>Path to a plain text file containing a list of elements, one per line, depending on the mode.</value>
   </data>
   <data name="LongDescription" xml:space="preserve">
-    <value>The behavior of this tool depends on the arguments passed to it. Most importantly is the "Mode" which will determine the behavior and required environment variables.</value>
+    <value>The behavior of this tool depends on the arguments passed to it. Most
+importantly is the "Mode" which will determine the behavior and required
+environment variables.</value>
   </data>
   <data name="ShortUsageMessage" xml:space="preserve">
     <value>Usage: -fpl -sln Solution.sln -l ProjectListing.txt</value>

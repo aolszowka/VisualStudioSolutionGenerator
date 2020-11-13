@@ -133,7 +133,9 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The behavior of this tool depends on the arguments passed to it. Most importantly is the &quot;Mode&quot; which will determine the behavior and required environment variables..
+        ///   Looks up a localized string similar to The behavior of this tool depends on the arguments passed to it. Most
+        ///importantly is the &quot;Mode&quot; which will determine the behavior and required
+        ///environment variables..
         /// </summary>
         internal static string LongDescription {
             get {
