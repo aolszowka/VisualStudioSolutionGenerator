@@ -11,6 +11,7 @@ namespace VisualStudioSolutionGenerator
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
 
     using Microsoft.Build.Construction;
 
@@ -47,7 +48,10 @@ namespace VisualStudioSolutionGenerator
             sb.AppendLine("	EndGlobalSection");
             sb.AppendLine("EndGlobal");
 
-            return sb.ToString();
+            // The solution format uses CRLF as the line endings
+            string solutionFile = Regex.Replace(sb.ToString(), "(\r\n|\r|\n)", "\r\n");
+
+            return solutionFile;
         }
 
         internal static void GenerateConfigurationFragmentForProjects(IEnumerable<string> projFilePaths, StringBuilder sb)
@@ -55,6 +59,10 @@ namespace VisualStudioSolutionGenerator
             foreach (var proj in projFilePaths)
             {
                 string projectGuid = MSBuildUtilities.GetProjectGuid(proj);
+
+                // The Project GUID is Uppercased and surrounded in braces
+                projectGuid = Guid.Parse(projectGuid).ToString("B").ToUpperInvariant();
+
                 string configuration = DetermineConfigurationForProject(proj);
 
                 sb.AppendLine($"		{projectGuid}.Debug|Any CPU.ActiveCfg = Debug|{configuration}");
@@ -84,7 +92,9 @@ namespace VisualStudioSolutionGenerator
             string relativePath = Path.GetRelativePath(solutionRoot, pathToProjFile).Replace(Path.DirectorySeparatorChar, '\\');
             string projectTypeGuid = GetProjectTypeGuid(pathToProjFile);
             string projectName = Path.GetFileNameWithoutExtension(pathToProjFile);
-            string projectGuid = MSBuildUtilities.GetProjectGuid(pathToProjFile);
+
+            // The Project GUID is upper cased as well as thrown in braces
+            string projectGuid = Guid.Parse(MSBuildUtilities.GetProjectGuid(pathToProjFile)).ToString("B").ToUpperInvariant();
 
             string fragment = $"Project(\"{projectTypeGuid}\") = \"{projectName}\", \"{relativePath}\", \"{projectGuid}\"\r\nEndProject";
             return fragment;
