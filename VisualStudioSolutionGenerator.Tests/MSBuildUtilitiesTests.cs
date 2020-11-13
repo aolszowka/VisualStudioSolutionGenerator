@@ -6,6 +6,7 @@
 
 namespace VisualStudioSolutionGenerator.Tests
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
@@ -46,6 +47,87 @@ namespace VisualStudioSolutionGenerator.Tests
             IEnumerable<string> actual = MSBuildUtilities.ResolveProjectReferenceDependenciesFlat(projects);
 
             Assert.That(actual, Is.EquivalentTo(expected));
+        }
+
+        [TestCaseSource(typeof(ResolveProjectReferenceDependencies_ValidInput_Tests))]
+        public void ResolveProjectReferenceDependencies_ValidInput(IEnumerable<string> projects, IDictionary<string, IEnumerable<string>> expected)
+        {
+            IDictionary<string, IEnumerable<string>> actual = MSBuildUtilities.ResolveProjectReferenceDependencies(projects);
+
+            Assert.That(actual, Is.EquivalentTo(expected));
+        }
+    }
+
+    internal class ResolveProjectReferenceDependencies_ValidInput_Tests : IEnumerable
+    {
+        public IEnumerator GetEnumerator()
+        {
+            yield return new TestCaseData
+                (
+                    new string[]
+                    {
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_A", "net472csharp_A.csproj"),
+                    },
+                    new Dictionary<string, IEnumerable<string>>()
+                    {
+                        {
+                            Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_A", "net472csharp_A.csproj"),
+                            new string[]
+                            {
+                                Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_B", "net472csharp_B.csproj"),
+                                Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_C", "net472csharp_C.csproj"),
+                            }
+                        },
+                        {
+                            Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_B", "net472csharp_B.csproj"),
+                            Array.Empty<string>()
+                        },
+                        {
+                            Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_C", "net472csharp_C.csproj"),
+                            new string[]
+                            {
+                                Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_D", "net472csharp_D.csproj"),
+                            }
+                        },
+                        {
+                            Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_D", "net472csharp_D.csproj"),
+                            Array.Empty<string>()
+                        }
+                    }
+                );
+            yield return new TestCaseData
+                (
+                    new string[]
+                    {
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_A", "netstandard20csharp_A.csproj"),
+                    },
+                    new Dictionary<string, IEnumerable<string>>()
+                    {
+                        {
+                            Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_A", "netstandard20csharp_A.csproj"),
+                            new string[]
+                            {
+                                Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_B", "netstandard20csharp_B.csproj"),
+                                Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_C", "netstandard20csharp_C.csproj"),
+                            }
+                        },
+                        {
+                            Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_B", "netstandard20csharp_B.csproj"),
+                            Array.Empty<string>()
+                        },
+                        {
+                            Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_C", "netstandard20csharp_C.csproj"),
+                            new string[]
+                            {
+                                Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_D", "netstandard20csharp_D.csproj"),
+                            }
+                        },
+                        {
+                            Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_D", "netstandard20csharp_D.csproj"),
+                            Array.Empty<string>()
+                        }
+                    }
+                );
         }
     }
 
