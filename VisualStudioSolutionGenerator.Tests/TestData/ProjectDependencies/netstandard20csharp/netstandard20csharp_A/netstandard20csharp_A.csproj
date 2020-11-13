@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\netstandard20csharp_B\netstandard20csharp_B.csproj" />
+    <ProjectReference Include="..\netstandard20csharp_C\netstandard20csharp_C.csproj" />
+  </ItemGroup>
+
+</Project>
