@@ -85,8 +85,8 @@ namespace VisualStudioSolutionGenerator
             string projectName = Path.GetFileNameWithoutExtension(pathToProjFile);
             string projectGuid = MSBuildUtilities.GetProjectGuid(pathToProjFile);
 
-            string fragment = "Project(\"{0}\") = \"{1}\", \"{2}\", \"{3}\"\r\nEndProject";
-            return string.Format(fragment, projectTypeGuid, projectName, relativePath, projectGuid);
+            string fragment = $"Project(\"{projectTypeGuid}\") = \"{projectName}\", \"{relativePath}\", \"{projectGuid}\"\r\nEndProject";
+            return fragment;
         }
 
         /// <summary>
