@@ -8,6 +8,11 @@
 
     internal static class SolutionGenerator
     {
+        /// <summary>
+        /// Generates a Solution File at the specified location with the given projects (pulled from a listing file)
+        /// </summary>
+        /// <param name="solutionFile">The path to the solution to create</param>
+        /// <param name="projectListingFile"></param>
         public static void FromProjectListing(string solutionFile, string projectListingFile)
         {
             // Get all the Projects to Add
@@ -115,6 +120,9 @@
 
         internal static void GenerateAndSaveSolution(string solutionFile, IEnumerable<string> projects)
         {
+            // We need the full path to the solution file
+            solutionFile = new FileInfo(solutionFile).FullName;
+
             // Find our solution root
             string solutionRoot = Path.GetDirectoryName(solutionFile) + Path.DirectorySeparatorChar;
 
