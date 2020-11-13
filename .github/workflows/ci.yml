@@ -47,12 +47,12 @@ jobs:
 
       # Package the Project (CI/Branch)
       - name: Package (Branch)
-        if: ${{ github.ref != 'refs/heads/master' }}
+        if: ${{ github.ref != 'refs/heads/main' }}
         run: dotnet pack --configuration Release --no-build --version-suffix "ci-${{ github.sha }}"
 
-      # Package the Project (master/Release)
+      # Package the Project (main/Release)
       - name: Package (Release)
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: dotnet pack --configuration Release --no-build
 
       # Always Upload the Assets
@@ -65,9 +65,9 @@ jobs:
               nupkg/*.snupkg
             if-no-files-found: error
 
-      # Publish the Package, but only if on Master
+      # Publish the Package, but only if on main
 #      - name: Publish the package to GPR (Release ONLY)
-#        if: ${{ github.ref == 'refs/heads/master' }}
+#        if: ${{ github.ref == 'refs/heads/main' }}
 #        run: dotnet nuget push nupkg/*.nupkg
 
   # This is intended to build/test on Windows
