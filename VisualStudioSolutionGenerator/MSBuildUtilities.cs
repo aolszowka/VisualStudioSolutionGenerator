@@ -117,11 +117,18 @@ namespace SolutionGenerator
         /// <returns>An IEnumerable that contains all the fully qualified ProjectReference paths.</returns>
         internal static IEnumerable<string> ProjectReferences(string targetProject)
         {
-            XNamespace msbuildNS = "http://schemas.microsoft.com/developer/msbuild/2003";
-
             XDocument projXml = XDocument.Load(targetProject);
 
-            IEnumerable<XElement> projectReferences = projXml.Descendants(msbuildNS + "ProjectReference");
+            IEnumerable<XElement> projectReferences;
+
+            if (IsDotnetCore(targetProject))
+            {
+                projectReferences = projXml.Descendants("ProjectReference");
+            }
+            else
+            {
+                projectReferences = projXml.Descendants(MSBUILD_NAMESPACE + "ProjectReference");
+            }
 
             foreach (XElement projectReference in projectReferences)
             {
