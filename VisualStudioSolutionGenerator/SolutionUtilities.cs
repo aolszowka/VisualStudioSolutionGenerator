@@ -80,7 +80,8 @@ namespace VisualStudioSolutionGenerator
         /// <returns>A <c>string</c> that represents a properly formatted Project Fragment for a Visual Studio Solution.</returns>
         internal static string GenerateSolutionFragmentForProject(string solutionRoot, string pathToProjFile)
         {
-            string relativePath = Path.GetRelativePath(solutionRoot, pathToProjFile);
+            // On Non-Windows Platforms We need to change this to a Backslash (\)
+            string relativePath = Path.GetRelativePath(solutionRoot, pathToProjFile).Replace(Path.DirectorySeparatorChar, '\\');
             string projectTypeGuid = GetProjectTypeGuid(pathToProjFile);
             string projectName = Path.GetFileNameWithoutExtension(pathToProjFile);
             string projectGuid = MSBuildUtilities.GetProjectGuid(pathToProjFile);

@@ -137,7 +137,10 @@ namespace VisualStudioSolutionGenerator
 
             foreach (XElement projectReference in projectReferences)
             {
-                string relativeProjectPath = projectReference.Attribute("Include").Value;
+                // The MSBuild format uses a backlash (\) for relative paths,
+                // however on non-windows platforms this breaks Path.Combine,
+                // replace this with the appropriate DirectorySeparatorChar
+                string relativeProjectPath = projectReference.Attribute("Include").Value.Replace('\\', Path.DirectorySeparatorChar);
                 string resolvedPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(targetProject), relativeProjectPath));
                 yield return resolvedPath;
             }
