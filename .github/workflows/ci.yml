@@ -66,9 +66,9 @@ jobs:
             if-no-files-found: error
 
       # Publish the Package, but only if on main
-#      - name: Publish the package to GPR (Release ONLY)
-#        if: ${{ github.ref == 'refs/heads/main' }}
-#        run: dotnet nuget push nupkg/*.nupkg
+      - name: Publish the package to GPR (Release ONLY)
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: dotnet nuget push nupkg/*.nupkg
 
   # This is intended to build/test on Windows
   test-windows:
