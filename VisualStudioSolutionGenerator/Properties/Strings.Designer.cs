@@ -61,7 +61,7 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For certain modes, a directory to scan for projects.
+        ///   Looks up a localized string similar to For certain modes, a directory to scan for projects..
         /// </summary>
         internal static string DirectoryDescription {
             get {
@@ -70,7 +70,7 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate a solution for a given folder path, optionally specifying an ignore file.
+        ///   Looks up a localized string similar to Generate a solution for a given folder path. Requires -sln, -d, and optionally -i..
         /// </summary>
         internal static string ForFolderDescription {
             get {
@@ -79,7 +79,7 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate a solution from a project listing file.
+        ///   Looks up a localized string similar to Generate a solution from a project listing file. Requires -sln and -l..
         /// </summary>
         internal static string FromProjectListingDescription {
             get {
@@ -88,7 +88,7 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate a solution from a project listing file that contains paths relative to the solution file.
+        ///   Looks up a localized string similar to Generate a solution from a project listing file that contains paths relative to the solution file. Requires -sln and -l..
         /// </summary>
         internal static string FromProjectListingRelativeDescription {
             get {
@@ -97,7 +97,7 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate a solution from a solution listing file.
+        ///   Looks up a localized string similar to Generate a solution from a solution listing file. Requires -sln and -l..
         /// </summary>
         internal static string FromSolutionListingDescription {
             get {
@@ -115,7 +115,7 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For certain modes, a plain-text file containing paths to ignore.
+        ///   Looks up a localized string similar to For certain modes, a plain-text file containing paths to ignore..
         /// </summary>
         internal static string IgnoreFileDescription {
             get {
@@ -124,7 +124,7 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Path to a list of projects.
+        ///   Looks up a localized string similar to Path to a plain text file containing a list of elements, one per line, depending on the mode..
         /// </summary>
         internal static string ListingDescription {
             get {
@@ -133,7 +133,7 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The behavior of this tool depends on the arguments passed to it.
+        ///   Looks up a localized string similar to The behavior of this tool depends on the arguments passed to it. Most importantly is the &quot;Mode&quot; which will determine the behavior and required environment variables..
         /// </summary>
         internal static string LongDescription {
             get {

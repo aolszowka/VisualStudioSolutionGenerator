@@ -11,6 +11,39 @@ In addition something like Solution Filters ([Filtered solutions in Visual Studi
 This tool is used to generate solution files from a variety of sources, depending upon the arguments sent to the tooling.
 
 ## Usage
+There are now two ways to run this tool:
+
+1. (Compiled Executable) Invoke the tool via `VisualStudioSolutionGenerator` and pass the arguments.
+2. (Dotnet Tool) Install this tool using the following command `dotnet tool install VisualStudioSolutionGenerator` (assuming that you have the nuget package in your feed) then invoke it via `dotnet generate-solution`
+
+In both cases the flags to the tooling are identical:
+
+```text
+Usage: -fpl -sln Solution.sln -l ProjectListing.txt
+
+The behavior of this tool depends on the arguments passed to it. Most importantly is the "Mode" which will determine the behavior and required environment variables.
+
+      --FromProjectListing, --fpl
+                             Generate a solution from a project listing file.
+                               Requires -sln and -l.
+      --FromProjectListingRelative, --fplr
+                             Generate a solution from a project listing file
+                               that contains paths relative to the solution
+                               file. Requires -sln and -l.
+      --FromSolutionListing, --fsl
+                             Generate a solution from a solution listing fil-
+                               e. Requires -sln and -l.
+      --ForFolder, --ff      Generate a solution for a given folder path.
+                               Requires -sln, -d, and optionally -i.
+      --solution, --sln      Path to the Solution File to create
+      --listing, -l          Path to a plain text file containing a list of
+                               elements, one per line, depending on the mode.
+      --directory, -d        For certain modes, a directory to scan for
+                               projects.
+      --ignorefile, -i       For certain modes, a plain-text file containing
+                               paths to ignore.
+  -?, -h, --help             Show this message and exit
+```
 
 ## Hacking
 ### Supported Project Types

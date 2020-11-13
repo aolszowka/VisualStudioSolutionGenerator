@@ -120,6 +120,10 @@ namespace VisualStudioSolutionGenerator
                     Environment.ExitCode = InvalidArguments("FromProjectListingRelative");
                 }
             }
+            else
+            {
+                Environment.ExitCode = ShowUsage(p);
+            }
         }
 
         /// <summary>

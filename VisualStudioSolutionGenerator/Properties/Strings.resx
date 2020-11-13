@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DirectoryDescription" xml:space="preserve">
-    <value>For certain modes, a directory to scan for projects</value>
+    <value>For certain modes, a directory to scan for projects.</value>
   </data>
   <data name="ForFolderDescription" xml:space="preserve">
-    <value>Generate a solution for a given folder path, optionally specifying an ignore file</value>
+    <value>Generate a solution for a given folder path. Requires -sln, -d, and optionally -i.</value>
   </data>
   <data name="FromProjectListingDescription" xml:space="preserve">
-    <value>Generate a solution from a project listing file</value>
+    <value>Generate a solution from a project listing file. Requires -sln and -l.</value>
   </data>
   <data name="FromProjectListingRelativeDescription" xml:space="preserve">
-    <value>Generate a solution from a project listing file that contains paths relative to the solution file</value>
+    <value>Generate a solution from a project listing file that contains paths relative to the solution file. Requires -sln and -l.</value>
   </data>
   <data name="FromSolutionListingDescription" xml:space="preserve">
-    <value>Generate a solution from a solution listing file</value>
+    <value>Generate a solution from a solution listing file. Requires -sln and -l.</value>
   </data>
   <data name="HelpDescription" xml:space="preserve">
     <value>Show this message and exit</value>
   </data>
   <data name="IgnoreFileDescription" xml:space="preserve">
-    <value>For certain modes, a plain-text file containing paths to ignore</value>
+    <value>For certain modes, a plain-text file containing paths to ignore.</value>
   </data>
   <data name="ListingDescription" xml:space="preserve">
-    <value>Path to a list of projects</value>
+    <value>Path to a plain text file containing a list of elements, one per line, depending on the mode.</value>
   </data>
   <data name="LongDescription" xml:space="preserve">
-    <value>The behavior of this tool depends on the arguments passed to it</value>
+    <value>The behavior of this tool depends on the arguments passed to it. Most importantly is the "Mode" which will determine the behavior and required environment variables.</value>
   </data>
   <data name="ShortUsageMessage" xml:space="preserve">
     <value>Usage: -fpl -sln Solution.sln -l ProjectListing.txt</value>
