@@ -41,6 +41,51 @@ namespace VisualStudioSolutionGenerator.Tests
 
             Assert.That(actual, Is.EquivalentTo(expected));
         }
+
+        [TestCaseSource(typeof(ResolveProjectReferenceDependenciesFlat_ValidInput_Tests))]
+        public void ResolveProjectReferenceDependenciesFlat_ValidInput(IEnumerable<string> projects, IEnumerable<string> expected)
+        {
+            IEnumerable<string> actual = MSBuildUtilities.ResolveProjectReferenceDependenciesFlat(projects);
+
+            Assert.That(actual, Is.EquivalentTo(expected));
+        }
+    }
+
+    internal class ResolveProjectReferenceDependenciesFlat_ValidInput_Tests : IEnumerable
+    {
+        public IEnumerator GetEnumerator()
+        {
+            yield return new
+                TestCaseData
+                (
+                    new string[]
+                    {
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_A", "net472csharp_A.csproj"),
+                    },
+                    new string[]
+                    {
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_A", "net472csharp_A.csproj"),
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_B", "net472csharp_B.csproj"),
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_C", "net472csharp_C.csproj"),
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "net472csharp", "net472csharp_D", "net472csharp_D.csproj"),
+                    }
+                );
+            yield return new
+                TestCaseData
+                (
+                    new string[]
+                    {
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_A", "netstandard20csharp_A.csproj"),
+                    },
+                    new string[]
+                    {
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_A", "netstandard20csharp_A.csproj"),
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_B", "netstandard20csharp_B.csproj"),
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_C", "netstandard20csharp_C.csproj"),
+                        Path.Combine(TestContext.CurrentContext.TestDirectory, "TestData", "ProjectDependencies", "netstandard20csharp", "netstandard20csharp_D", "netstandard20csharp_D.csproj"),
+                    }
+                );
+        }
     }
 
     internal class ProjectReferences_ValidInput_Tests : IEnumerable

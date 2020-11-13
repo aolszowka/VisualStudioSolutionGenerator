@@ -47,11 +47,16 @@ namespace SolutionGenerator
             return projectGuid.Value;
         }
 
+        /// <summary>
+        /// Given a IEnumerable of Target Project Files, Resolve All N-Order ProjectReference Dependencies.
+        /// </summary>
+        /// <param name="targetProjects">An IEnumerable of strings that represent MSBuild Projects.</param>
+        /// <returns>A IEnumerable of all the distinct projects, including the target projects.</returns>
         public static IEnumerable<string> ResolveProjectReferenceDependenciesFlat(IEnumerable<string> targetProjects)
         {
-            Dictionary<string, IEnumerable<string>> resolvedProjects = ResolveProjectReferenceDependencies(targetProjects);
+            IDictionary<string, IEnumerable<string>> resolvedProjects = ResolveProjectReferenceDependencies(targetProjects);
 
-            HashSet<string> distinctProjects = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+            HashSet<string> distinctProjects = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             // Include all the target projects
             foreach (string targetProject in targetProjects)
@@ -75,12 +80,12 @@ namespace SolutionGenerator
         /// </summary>
         /// <param name="targetProjects">An IEnumerable of strings that represent MSBuild Projects.</param>
         /// <returns>A Dictionary in which the Key is the Project, and the Value is an IEnumerable of all its Project Reference projects</returns>
-        public static Dictionary<string, IEnumerable<string>> ResolveProjectReferenceDependencies(IEnumerable<string> targetProjects)
+        public static IDictionary<string, IEnumerable<string>> ResolveProjectReferenceDependencies(IEnumerable<string> targetProjects)
         {
-            Dictionary<string, IEnumerable<string>> resolvedProjects = new Dictionary<string, IEnumerable<string>>();
+            Dictionary<string, IEnumerable<string>> resolvedProjects = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase);
 
             // Load up the initial projects to the stack
-            Stack<string> unresolvedProjects = new Stack<string>(targetProjects.Distinct());
+            Stack<string> unresolvedProjects = new Stack<string>(targetProjects.Distinct(StringComparer.OrdinalIgnoreCase));
 
             while (unresolvedProjects.Count > 0)
             {
