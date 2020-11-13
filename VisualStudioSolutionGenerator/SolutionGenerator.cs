@@ -9,10 +9,10 @@
     internal static class SolutionGenerator
     {
         /// <summary>
-        /// Generates a Solution File at the specified location with the given projects (pulled from a listing file)
+        /// Generates a Solution File at the specified location with the given projects pulled from a listing file
         /// </summary>
         /// <param name="solutionFile">The path to the solution to create</param>
-        /// <param name="projectListingFile"></param>
+        /// <param name="projectListingFile">The path to the listing file which contains the fully qualified paths</param>
         public static void FromProjectListing(string solutionFile, string projectListingFile)
         {
             // Get all the Projects to Add
@@ -22,7 +22,12 @@
             GenerateAndSaveSolution(solutionFile, projectsAndNOrderDependencies);
         }
 
-        public static void FromRelativePathListing(string solutionFile, string relativeProjectListingFile)
+        /// <summary>
+        /// Generates a Solution File at the specified location with the given projects pulled from a listing file containing project paths RELATIVE to the solution file.
+        /// </summary>
+        /// <param name="solutionFile">The path to the solution to create</param>
+        /// <param name="projectListingFile">The path to the listing file which contains the relative paths</param>
+        public static void FromProjectListingRelative(string solutionFile, string relativeProjectListingFile)
         {
             // Resolve the relative paths of the projects
             string solutionRoot = Path.GetDirectoryName(solutionFile);
@@ -32,8 +37,8 @@
                     .Select(relativePath =>
                     {
                         string combinedRelativePath = Path.Combine(solutionRoot, relativePath);
-                        string actualRelativePath = Path.GetFullPath(combinedRelativePath);
-                        return actualRelativePath;
+                        string fullPath = Path.GetFullPath(combinedRelativePath);
+                        return fullPath;
                     });
 
             // Now Resolve all N-Order Dependencies
@@ -42,20 +47,41 @@
             GenerateAndSaveSolution(solutionFile, projFilesAndNOrderDependencies);
         }
 
-        public static void ForFolder(string directoryToScan, string targetSolution, string excludeFile)
+        /// <summary>
+        /// Generates a Solution File at the specified location with the given Solutions pulled from a listing file
+        /// </summary>
+        /// <param name="solutionFile"></param>
+        /// <param name="targetSolutionFile"></param>
+        public static void FromSolutionListing(string solutionFile, string targetSolutionFile)
+        {
+            IEnumerable<string> targetSolutions = File.ReadLines(targetSolutionFile);
+            ForSolutions(solutionFile, targetSolutions);
+        }
+
+        /// <summary>
+        /// Generates a Solution file at the specified location based on scanning a given directory for supported projects, optionally with an ignore file.
+        /// </summary>
+        /// <param name="directoryToScan">The directory to scan for projects</param>
+        /// <param name="targetSolution">The path to the solution to create</param>
+        /// <param name="ignoreFile">Optional path to file containing a list of ignored projects</param>
+        public static void ForFolder(string directoryToScan, string targetSolution, string ignoreFile)
         {
             IEnumerable<string> excludedProjects = new string[0];
 
-            if (!string.IsNullOrEmpty(excludeFile) && File.Exists(excludeFile))
+            if (!string.IsNullOrEmpty(ignoreFile) && File.Exists(ignoreFile))
             {
                 excludedProjects =
                     File
-                    .ReadLines(excludeFile)
+                    .ReadLines(ignoreFile)
                     .Select(current => Path.Combine(directoryToScan, current));
             }
 
-            IEnumerable<string> csprojFilesInDirectory = Directory.EnumerateFiles(directoryToScan, "*.csproj", SearchOption.AllDirectories).Except(excludedProjects);
-            IEnumerable<string> projFilesAndNOrderDependencies = MSBuildUtilities.ResolveProjectReferenceDependenciesFlat(csprojFilesInDirectory);
+            IEnumerable<string> supportedProjectsInDirectory =
+                Directory
+                .EnumerateFiles(directoryToScan, "*proj", SearchOption.AllDirectories)
+                .Where(projectPath => SolutionUtilities.SUPPORTED_PROJECT_TYPES.Contains(Path.GetExtension(projectPath)))
+                .Except(excludedProjects);
+            IEnumerable<string> projFilesAndNOrderDependencies = MSBuildUtilities.ResolveProjectReferenceDependenciesFlat(supportedProjectsInDirectory);
 
             GenerateAndSaveSolution(targetSolution, projFilesAndNOrderDependencies);
         }
@@ -120,9 +146,6 @@
 
         internal static void GenerateAndSaveSolution(string solutionFile, IEnumerable<string> projects)
         {
-            // We need the full path to the solution file
-            solutionFile = new FileInfo(solutionFile).FullName;
-
             // Find our solution root
             string solutionRoot = Path.GetDirectoryName(solutionFile) + Path.DirectorySeparatorChar;
 

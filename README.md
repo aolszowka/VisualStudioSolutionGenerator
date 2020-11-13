@@ -16,7 +16,7 @@ This tool is used to generate solution files from a variety of sources, dependin
 ### Supported Project Types
 The most likely change you will want to make is changing the supported project files. In theory this tool should support any MSBuild Project Format that utilizes a ProjectGuid.
 
-Start by looking at `SolutionGenerationUtilities.SUPPORTED_PROJECT_TYPES` and follow the rabbit trail from there.
+Start by looking at `SolutionUtilities.SUPPORTED_PROJECT_TYPES` and `SolutionUtiliites.GetProjectTypeGuid(string)` and follow the rabbit trail from there.
 
 ## Contributing
 Pull requests and bug reports are welcomed so long as they are MIT Licensed.

@@ -25,18 +25,28 @@ namespace VisualStudioSolutionGenerator
         public static void Main(string[] args)
         {
             // Modes
+            bool forFolder = false;
             bool fromProjectListing = false;
+            bool fromProjectListingRelative = false;
+            bool fromSolutionListing = false;
             bool showHelp = false;
 
             // Arguments
             string solutionPath = string.Empty;
-            string projectListingPath = string.Empty;
+            string listingPath = string.Empty;
+            string directory = string.Empty;
+            string ignoreFile = string.Empty;
 
             OptionSet p = new OptionSet()
             {
                 { "FromProjectListing|fpl", Strings.FromProjectListingDescription, v => fromProjectListing = v != null },
+                { "FromProjectListingRelative|fplr", Strings.FromProjectListingRelativeDescription, v => fromProjectListingRelative = v != null },
+                { "FromSolutionListing|fsl", Strings.FromSolutionListingDescription, v => fromSolutionListing = v != null },
+                { "ForFolder|ff", Strings.ForFolderDescription, v => forFolder = v != null },
                 { "solution|sln", Strings.SolutionDescription, v => solutionPath = v },
-                { "listing|l", Strings.ListingDescription, v => projectListingPath = v },
+                { "listing|l", Strings.ListingDescription, v => listingPath = v },
+                { "directory|d", Strings.DirectoryDescription, v => directory = v },
+                { "ignorefile|i", Strings.IgnoreFileDescription, v => ignoreFile = v },
                 { "?|h|help", Strings.HelpDescription, v => showHelp = v != null },
             };
 
@@ -60,13 +70,54 @@ namespace VisualStudioSolutionGenerator
             }
             else if (fromProjectListing)
             {
-                if (ValidateArgument("solution", solutionPath) && ValidateArgument("listing", projectListingPath))
+                if (ValidateArgument("solution", solutionPath) && ValidateArgument("listing", listingPath))
                 {
-                    SolutionGenerator.FromProjectListing(args[0], args[1]);
+                    // We need the full path to the solution file
+                    solutionPath = new FileInfo(solutionPath).FullName;
+                    SolutionGenerator.FromProjectListing(solutionPath, listingPath);
                 }
                 else
                 {
                     Environment.ExitCode = InvalidArguments("FromProjectListing");
+                }
+            }
+            else if (fromProjectListingRelative)
+            {
+                if (ValidateArgument("solution", solutionPath) && ValidateArgument("listing", listingPath))
+                {
+                    // We need the full path to the solution file
+                    solutionPath = new FileInfo(solutionPath).FullName;
+                    SolutionGenerator.FromProjectListingRelative(solutionPath, listingPath);
+                }
+                else
+                {
+                    Environment.ExitCode = InvalidArguments("FromProjectListingRelative");
+                }
+            }
+            else if (fromSolutionListing)
+            {
+                if (ValidateArgument("solution", solutionPath) && ValidateArgument("listing", listingPath))
+                {
+                    // We need the full path to the solution file
+                    solutionPath = new FileInfo(solutionPath).FullName;
+                    SolutionGenerator.FromSolutionListing(solutionPath, listingPath);
+                }
+                else
+                {
+                    Environment.ExitCode = InvalidArguments("FromProjectListingRelative");
+                }
+            }
+            else if (forFolder)
+            {
+                if (ValidateArgument("solution", solutionPath) && ValidateArgument("directory", directory))
+                {
+                    // We need the full path to the solution file
+                    solutionPath = new FileInfo(solutionPath).FullName;
+                    SolutionGenerator.ForFolder(directory, solutionPath, ignoreFile);
+                }
+                else
+                {
+                    Environment.ExitCode = InvalidArguments("FromProjectListingRelative");
                 }
             }
         }

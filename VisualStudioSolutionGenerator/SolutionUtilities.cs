@@ -17,6 +17,15 @@ namespace VisualStudioSolutionGenerator
 
     static class SolutionUtilities
     {
+        internal static ISet<string> SUPPORTED_PROJECT_TYPES =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            {
+                ".csproj",
+                ".fsproj",
+                ".sqlproj",
+                ".synproj",
+            };
+
         public static string GenerateSolutionForProjects(string targetDirectory, IEnumerable<string> projFilePaths)
         {
             StringBuilder sb = new StringBuilder();

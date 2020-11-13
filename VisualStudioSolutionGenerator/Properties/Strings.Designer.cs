@@ -61,6 +61,24 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For certain modes, a directory to scan for projects.
+        /// </summary>
+        internal static string DirectoryDescription {
+            get {
+                return ResourceManager.GetString("DirectoryDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate a solution for a given folder path, optionally specifying an ignore file.
+        /// </summary>
+        internal static string ForFolderDescription {
+            get {
+                return ResourceManager.GetString("ForFolderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generate a solution from a project listing file.
         /// </summary>
         internal static string FromProjectListingDescription {
@@ -70,11 +88,38 @@ namespace VisualStudioSolutionGenerator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate a solution from a project listing file that contains paths relative to the solution file.
+        /// </summary>
+        internal static string FromProjectListingRelativeDescription {
+            get {
+                return ResourceManager.GetString("FromProjectListingRelativeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate a solution from a solution listing file.
+        /// </summary>
+        internal static string FromSolutionListingDescription {
+            get {
+                return ResourceManager.GetString("FromSolutionListingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show this message and exit.
         /// </summary>
         internal static string HelpDescription {
             get {
                 return ResourceManager.GetString("HelpDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For certain modes, a plain-text file containing paths to ignore.
+        /// </summary>
+        internal static string IgnoreFileDescription {
+            get {
+                return ResourceManager.GetString("IgnoreFileDescription", resourceCulture);
             }
         }
         
