@@ -70,7 +70,7 @@ namespace VisualStudioSolutionGenerator
             }
             else if (fromProjectListing)
             {
-                if (ValidateArgument("solution", solutionPath) && ValidateArgument("listing", listingPath))
+                if (ValidateArgumentWasPassed("solution", solutionPath) && ValidateArgumentPathIsValid("listing", listingPath))
                 {
                     // We need the full path to the solution file
                     solutionPath = new FileInfo(solutionPath).FullName;
@@ -83,7 +83,7 @@ namespace VisualStudioSolutionGenerator
             }
             else if (fromProjectListingRelative)
             {
-                if (ValidateArgument("solution", solutionPath) && ValidateArgument("listing", listingPath))
+                if (ValidateArgumentWasPassed("solution", solutionPath) && ValidateArgumentPathIsValid("listing", listingPath))
                 {
                     // We need the full path to the solution file
                     solutionPath = new FileInfo(solutionPath).FullName;
@@ -96,7 +96,7 @@ namespace VisualStudioSolutionGenerator
             }
             else if (fromSolutionListing)
             {
-                if (ValidateArgument("solution", solutionPath) && ValidateArgument("listing", listingPath))
+                if (ValidateArgumentWasPassed("solution", solutionPath) && ValidateArgumentPathIsValid("listing", listingPath))
                 {
                     // We need the full path to the solution file
                     solutionPath = new FileInfo(solutionPath).FullName;
@@ -109,7 +109,7 @@ namespace VisualStudioSolutionGenerator
             }
             else if (forFolder)
             {
-                if (ValidateArgument("solution", solutionPath) && ValidateArgument("directory", directory))
+                if (ValidateArgumentWasPassed("solution", solutionPath) && ValidateArgumentPathIsValid("directory", directory))
                 {
                     // We need the full path to the solution file
                     solutionPath = new FileInfo(solutionPath).FullName;
@@ -143,19 +143,34 @@ namespace VisualStudioSolutionGenerator
         /// <param name="argumentName">The name of the argument/switch passed.</param>
         /// <param name="argument">The value of the argument.</param>
         /// <returns><c>true</c> if the argument is valid; otherwise, <c>false</c>.</returns>
-        private static bool ValidateArgument(string argumentName, string argument)
+        private static bool ValidateArgumentPathIsValid(string argumentName, string argument)
+        {
+            bool isValid = true;
+
+            isValid = ValidateArgumentWasPassed(argumentName, argument);
+
+            if (!File.Exists(argument))
+            {
+                Console.WriteLine($"You must provide a path that exists to -{argumentName}; Received `{argument}`.");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        /// <summary>
+        /// Provides common logic to validate that an argument was passed.
+        /// </summary>
+        /// <param name="argumentName">The name of the argument/switch passed.</param>
+        /// <param name="argument">The value of the argument.</param>
+        /// <returns><c>true</c> if the argument is valid; otherwise, <c>false</c>.</returns>
+        private static bool ValidateArgumentWasPassed(string argumentName, string argument)
         {
             bool isValid = true;
 
             if (string.IsNullOrWhiteSpace(argument))
             {
                 Console.WriteLine($"You must provide an argument to -{argumentName}");
-                isValid = false;
-            }
-
-            if (!File.Exists(argument))
-            {
-                Console.WriteLine($"You must provide a path that exists to -{argumentName}; Receieved `{argument}`.");
                 isValid = false;
             }
 

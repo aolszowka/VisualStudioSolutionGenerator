@@ -16,7 +16,7 @@
     <PackAsTool>true</PackAsTool>
     <RepositoryUrl>https://github.com/aolszowka/VisualStudioSolutionGenerator</RepositoryUrl>
     <ToolCommandName>generate-solution</ToolCommandName>
-    <VersionPrefix>2.0.1</VersionPrefix>
+    <VersionPrefix>2.0.2</VersionPrefix>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
   </PropertyGroup>
   <PropertyGroup>
