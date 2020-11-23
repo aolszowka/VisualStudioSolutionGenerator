@@ -43,10 +43,10 @@ namespace VisualStudioSolutionGenerator
                 { "FromProjectListingRelative|fplr", Strings.FromProjectListingRelativeDescription, v => fromProjectListingRelative = v != null },
                 { "FromSolutionListing|fsl", Strings.FromSolutionListingDescription, v => fromSolutionListing = v != null },
                 { "ForFolder|ff", Strings.ForFolderDescription, v => forFolder = v != null },
-                { "solution|sln", Strings.SolutionDescription, v => solutionPath = v },
-                { "listing|l", Strings.ListingDescription, v => listingPath = v },
-                { "directory|d", Strings.DirectoryDescription, v => directory = v },
-                { "ignorefile|i", Strings.IgnoreFileDescription, v => ignoreFile = v },
+                { "solution|sln=", Strings.SolutionDescription, v => solutionPath = v },
+                { "listing|l=", Strings.ListingDescription, v => listingPath = v },
+                { "directory|d=", Strings.DirectoryDescription, v => directory = v },
+                { "ignorefile|i=", Strings.IgnoreFileDescription, v => ignoreFile = v },
                 { "?|h|help", Strings.HelpDescription, v => showHelp = v != null },
             };
 
